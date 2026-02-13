@@ -30,27 +30,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const themeIcon = document.getElementById("theme-icon");
 
   // Dark mode functionality
+  function updateThemeIcon(isDarkMode) {
+    themeIcon.textContent = isDarkMode ? "☀️" : "🌙";
+  }
+
   function initializeDarkMode() {
     const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
+    const isDarkMode = savedTheme === "dark";
+    if (isDarkMode) {
       document.body.classList.add("dark-mode");
-      themeIcon.textContent = "☀️";
-    } else {
-      themeIcon.textContent = "🌙";
     }
+    updateThemeIcon(isDarkMode);
   }
 
   function toggleDarkMode() {
     document.body.classList.toggle("dark-mode");
     const isDarkMode = document.body.classList.contains("dark-mode");
-    
-    if (isDarkMode) {
-      themeIcon.textContent = "☀️";
-      localStorage.setItem("theme", "dark");
-    } else {
-      themeIcon.textContent = "🌙";
-      localStorage.setItem("theme", "light");
-    }
+    updateThemeIcon(isDarkMode);
+    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
   }
 
   // Event listener for dark mode toggle
